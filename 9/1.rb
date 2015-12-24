@@ -25,6 +25,7 @@ else
   citiesToIndices = Hash[cities.map.with_index.to_a]
   adjMat = Array.new(cities.length) { Array.new(cities.length) {0} }
   tuples = input.map {|line| line.gsub(/ to /, " ").gsub(/= /,"").split }
+  binding.pry
   tuples.each do |tuple|
     adjMat[citiesToIndices[tuple[0]]][citiesToIndices[tuple[1]]] = tuple[2].to_i
     adjMat[citiesToIndices[tuple[1]]][citiesToIndices[tuple[0]]] = tuple[2].to_i
