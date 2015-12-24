@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 class String
   def incrementing?
@@ -25,8 +24,6 @@ begin
 rescue
   puts "Oops"
 else
-  begin
-    str.next!
-  end until str.valid?
+  str.next! until str.valid?
   puts str
 end

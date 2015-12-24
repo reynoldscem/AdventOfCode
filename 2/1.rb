@@ -26,14 +26,19 @@ def ribbonForItem(line)
   ribbon += 2*sides[1]
 end
 
-input = File.open(ARGV[0]).read.split
-totalArea = 0
-totalRibbon = 0
-input.each do |line|
-  entry = parse line
-  totalArea += areaForItem entry
-  totalRibbon += ribbonForItem entry
-end
+begin
+  input = File.open(ARGV[0]).read.split
+rescue
+  puts "Oops"
+else
+  totalArea = 0
+  totalRibbon = 0
+  input.each do |line|
+    entry = parse line
+    totalArea += areaForItem entry
+    totalRibbon += ribbonForItem entry
+  end
 
-puts totalArea
-puts totalRibbon
+  puts totalArea
+  puts totalRibbon
+end

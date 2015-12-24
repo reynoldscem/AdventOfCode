@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 begin
   str = File.open(ARGV[0]).read.chomp

@@ -12,5 +12,5 @@ else
        .gsub(/\\x[0-9a-f]{2}/,".....")
        .length + 2
     end
-  puts res.reduce(:+) - orig.reduce(:+) 
+  puts res.reduce(:+) - orig.reduce(:+)
 end

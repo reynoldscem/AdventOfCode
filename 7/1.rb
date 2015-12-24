@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 def parseRule(gates, rule)
   # NOT
@@ -62,7 +61,6 @@ input = File.open(ARGV[0]).read.split("\n")
 gates = Hash.new
 
 rules = input.map {|rule| rule.split("->").map(&:strip)}.map{|rule| [rule[0].split, rule[1]]}
-#baseRules = rules.select{|rule| rule[0].length == 1 && rule[0][0].match(/[0-65535]/)}
 baseRuleIndices = rules.each_index.select do |index|
   rule = rules[index]
   rule[0].length == 1 && rule[0][0].match(/[0-65535]/)
@@ -85,4 +83,3 @@ while (nextRound = getNextRoundIndices(rules, gates)).length > 0
   end
   rules.compact!
 end
-binding.pry
