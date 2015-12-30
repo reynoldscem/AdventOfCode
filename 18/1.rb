@@ -6,7 +6,8 @@ require 'pry'
 def dispLights(lights)
   system("clear")
   lights.each do |row|
-    print row.map(&:to_s).join.gsub(/0/,' ').gsub(/1/,'.')
+    print row.map(&:to_s).join.gsub(/0/,' ').gsub(/1/,'#')
+    print row.map(&:to_s).join.gsub(/0/,' ').gsub(/1/,'#').reverse
     puts
   end
 end
