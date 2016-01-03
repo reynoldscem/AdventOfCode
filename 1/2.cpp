@@ -19,8 +19,8 @@ int main(int ARGC, char** ARGV)
     int pos = 0;
     for (int floor = 0; floor != -1; pos++)
       floor += nums[pos];
-    std::cout << pos << std::endl;
+    std::cout << pos << "\n";
   } else {
-    std::cout << "Oops" << std::endl;
+    std::cout << "Oops\n";
   }
 }

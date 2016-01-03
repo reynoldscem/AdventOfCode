@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./$1 input.txt
+./$1 $2

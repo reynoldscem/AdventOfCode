@@ -14,9 +14,9 @@ int main(int ARGC, char** ARGV)
     infile.close();
     std::cout <<
       std::accumulate(brackets.begin(), brackets.end(), 0,
-        [](int acc, char c) -> int { return acc + (c == '(' ? 1 : -1); } ) <<
-      std::endl;
+        [](int acc, char c) -> int { return acc + (c == '(' ? 1 : -1); }
+      ) << "\n";
   } else {
-    std::cout << "Oops" << std::endl;
+    std::cout << "Oops\n";
   }
 }
