@@ -8,12 +8,7 @@ Indices = Struct.new(:rowInd, :colInd);
 santa = Indices.new(0, 0);
 roboSanta = Indices.new(0, 0);
 input.split('').each do |char|
-  rowInd, colInd =
-  if roboTurn
-    roboSanta
-  else
-    santa
-  end.to_a
+  rowInd, colInd = (roboTurn ? roboSanta : santa).to_a
 
   case char
   when '^'
@@ -26,19 +21,12 @@ input.split('').each do |char|
     colInd -= 1
   end
 
-  if grid[[rowInd, colInd]].nil?
-    grid[[rowInd, colInd]] = 1
-  else
-    grid[[rowInd, colInd]] += 1
-  end
+  grid[[rowInd, colInd]] ||= 0
+  grid[[rowInd, colInd]] += 1
 
-  if roboTurn
-    roboSanta[:rowInd] = rowInd
-    roboSanta[:colInd] = colInd
-  else
-    santa[:rowInd] = rowInd
-    santa[:colInd] = colInd
-  end
+  thisSanta = roboTurn ? roboSanta : santa
+  thisSanta[:rowInd] = rowInd
+  thisSanta[:colInd] = colInd
   roboTurn = !roboTurn
 end
 puts grid.values.length
