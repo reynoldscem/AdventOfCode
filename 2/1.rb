@@ -10,8 +10,7 @@ def areaForItem(line)
 end
 
 def ribbonForItem(line)
-  ribbon = line.reduce(:*)
-  ribbon += line.sort[0,2].map{|e| e*2 }.reduce(:+)
+  line.reduce(:*) + line.sort[0,2].map{|e| e*2 }.reduce(:+)
 end
 
 begin
