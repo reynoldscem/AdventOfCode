@@ -4,10 +4,9 @@
 #include <algorithm>
 #include <numeric>
 
-int main(int ARGC, char** ARGV)
-{
+int main(int argc, char** argv) {
   std::ifstream infile;
-  infile.open(ARGV[1]);
+  infile.open(argv[1]);
   if (infile.is_open()) {
     std::string brackets;
     getline(infile, brackets);
@@ -20,7 +19,9 @@ int main(int ARGC, char** ARGV)
     for (int floor = 0; floor != -1; pos++)
       floor += nums[pos];
     std::cout << pos << "\n";
+    return 0;
   } else {
-    std::cout << "Oops\n";
+    std::cout << "Valid input file from AdventOfCode required as first argument.\n";
+    return -1;
   }
 }
