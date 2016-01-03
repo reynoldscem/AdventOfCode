@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 def parse(line)
   line.split('x').map(&:to_i)
