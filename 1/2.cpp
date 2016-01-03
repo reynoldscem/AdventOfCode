@@ -14,7 +14,8 @@ int main(int argc, char** argv) {
     int numToks = brackets.length();
     int nums[numToks];
     std::transform(brackets.begin(), brackets.end(), nums,
-      [](char c) -> int { return(c == '(' ? 1 : -1); } );
+      [](char c) -> int { return(c == '(' ? 1 : -1); }
+    );
     int pos = 0;
     for (int floor = 0; floor != -1; pos++)
       floor += nums[pos];
