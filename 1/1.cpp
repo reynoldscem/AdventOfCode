@@ -12,11 +12,10 @@ int main(int ARGC, char** ARGV)
     std::string brackets;
     getline(infile, brackets);
     infile.close();
-    int numToks = brackets.length();
-    int nums[numToks];
-    std::transform(brackets.begin(), brackets.end(), nums,
-      [](char c) -> int { return(c == '(' ? 1 : -1); } );
-    std::cout << std::accumulate(nums, nums + numToks, 0, std::plus<int>()) << std::endl;
+    std::cout <<
+      std::accumulate(brackets.begin(), brackets.end(), 0,
+        [](int acc, char c) -> int { return acc + (c == '(' ? 1 : -1); } ) <<
+      std::endl;
   } else {
     std::cout << "Oops" << std::endl;
   }
