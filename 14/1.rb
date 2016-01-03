@@ -11,7 +11,7 @@ begin
   input = File.open(ARGV[0]).read.split("\n").map(&:split)
   duration = ARGV[1].to_i
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   Reindeer = Struct.new(:name, :speed, :duration, :rest)
   reindeers = input.map do |line|

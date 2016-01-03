@@ -2,7 +2,7 @@
 begin
   str = File.open(ARGV[0]).read
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   50.times do
     smashed = str.scan(/((\d)\2*)/).map(&:first)

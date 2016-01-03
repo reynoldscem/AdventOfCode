@@ -30,7 +30,7 @@ end
 begin
   presents = File.readlines(ARGV[0]).map(&:to_i)
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   puts choiceForNBins(presents, 4).reduce(:*)
 end

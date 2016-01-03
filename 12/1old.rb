@@ -36,7 +36,7 @@ end
 begin
   str = File.open(ARGV[0]).read.chomp
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   data = JSON.parse(str)
   remove_recursive(data, "red")

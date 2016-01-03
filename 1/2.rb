@@ -3,7 +3,7 @@
 begin
   upsNDowns = File.open(ARGV[0]).read.chomp.split('').map{|c|c=='('?1:-1}
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   floor = 0
   upsNDowns.each_with_index do |upOrDown, index|

@@ -3,7 +3,7 @@
 begin
   str = File.open(ARGV[0]).read.chomp
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   loop do
     openToClose = Hash.new

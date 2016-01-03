@@ -33,7 +33,7 @@ begin
   input = File.read(ARGV[0])
   equipment = File.readlines("equipment.txt").map(&:strip)
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   Person = Struct.new(:hp, :damage, :armour)
   Item = Struct.new(:name, :cost, :damage, :armour)

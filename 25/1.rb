@@ -3,7 +3,7 @@
 begin
   input = File.open(ARGV[0]).read
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   rows = input.split[-3].to_i
   cols = input.split[-1].to_i

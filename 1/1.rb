@@ -3,5 +3,5 @@
 begin
   puts File.open(ARGV[0]).read.chomp.split('').map{|c|c=='('?1:-1}.reduce(:+)
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 end

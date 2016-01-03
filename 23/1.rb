@@ -5,7 +5,7 @@ begin
   instructions = File.open(ARGV[0]).read.split("\n").map{|item| item.gsub(/,/,"").split }
   verbose = ARGV[1] == "-v"
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   pCounter = 0
   regBank = Array.new(2){0}

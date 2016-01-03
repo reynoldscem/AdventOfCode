@@ -19,7 +19,7 @@ end
 begin
   input = File.open(ARGV[0]).read.split("\n")
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   cities = input.join.gsub(/ to /," ").gsub(/\d/,"").gsub(/=/,"").split.uniq.sort
   citiesToIndices = Hash[cities.map.with_index.to_a]

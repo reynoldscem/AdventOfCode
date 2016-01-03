@@ -29,7 +29,7 @@ end
 begin
   input = File.open(ARGV[0]).read.split
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   totalArea = 0
   totalRibbon = 0

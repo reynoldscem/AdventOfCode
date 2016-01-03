@@ -3,7 +3,7 @@
 begin
   input = File.open(ARGV[0]).read.split("\n")
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   orig = input.map {|x| x.length}
   res = input.map do |str|

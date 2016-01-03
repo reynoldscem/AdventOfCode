@@ -19,7 +19,7 @@ end
 begin
   input = File.open(ARGV[0]).read
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   replacementHash = { /lose / => "-",/gain/=>"", / would/=>"",
                       / happiness units by sitting next to/=>"", /\./=>""}

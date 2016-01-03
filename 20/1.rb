@@ -3,7 +3,7 @@
 begin
   input = File.open(ARGV[0]).read.to_i
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   houses = Array.new((input/10 )+ 1){0}
   (1..(Float::INFINITY)).each do |elf|

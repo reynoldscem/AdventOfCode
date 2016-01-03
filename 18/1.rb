@@ -33,7 +33,7 @@ end
 begin
   input = File.read(ARGV[0])
 rescue
-  puts "Oops"
+  puts "Valid input file from AdventOfCode required as first argument."
 else
   lights = input.gsub(/#/,'1')
                 .gsub(/\./,'0')
