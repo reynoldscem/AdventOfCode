@@ -1,1 +1,11 @@
+# Ignore all
+*
+
+# Unignore dirs
+!*/
+
+# Unignore files with . in the name
+!*.*
+
+# Ignore .txt explicitly
 *.txt
