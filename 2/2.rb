@@ -4,9 +4,8 @@ def parse(line)
   line.split('x').map(&:to_i)
 end
 
-def areaForItem(line)
-  sides = line.combination(2).map{|pair| pair.reduce(:*) }
-  sides.map{|e|e*2}.reduce(:+) + sides.min
+def ribbonForItem(line)
+  line.reduce(:*) + line.sort[0,2].map{|e| e*2 }.reduce(:+)
 end
 
 begin
@@ -15,5 +14,5 @@ rescue
   puts "Valid input file from AdventOfCode required as first argument."
 else
   entries = input.map{|line| parse line }
-  puts entries.map{|entry| areaForItem entry }.reduce(:+)
+  puts entries.map{|entry| ribbonForItem entry }.reduce(:+)
 end
