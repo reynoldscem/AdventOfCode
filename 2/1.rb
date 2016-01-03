@@ -30,14 +30,7 @@ begin
 rescue
   puts "Valid input file from AdventOfCode required as first argument."
 else
-  totalArea = 0
-  totalRibbon = 0
-  input.each do |line|
-    entry = parse line
-    totalArea += areaForItem entry
-    totalRibbon += ribbonForItem entry
-  end
-
-  puts totalArea
-  puts totalRibbon
+  entries = input.map{|line| parse line }
+  puts entries.map{|entry| areaForItem entry }.reduce(:+)
+  puts entries.map{|entry| ribbonForItem entry }.reduce(:+)
 end
