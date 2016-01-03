@@ -2,13 +2,50 @@
 require 'pry'
 
 @rows = 100
-@cols = 204
+@cols = 180
+
+class String
+  # colorization
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+
+  def red
+    colorize(31)
+  end
+
+  def green
+    colorize(32)
+  end
+
+  def yellow
+    colorize(33)
+  end
+
+  def blue
+    colorize(34)
+  end
+
+  def pink
+    colorize(35)
+  end
+
+  def light_blue
+    colorize(36)
+  end
+end
 
 def dispLights(lights)
-#  system("clear")
+  system("clear")
   lights.each do |row|
-    puts row.map(&:to_s).join.gsub(/0/,' ').gsub(/1/,'#')
+    thisRow = row.map(&:to_s).join.gsub(/0/,' ').gsub(/1/,'#')
+    thisRow.split('').each do |pixel|
+      colour = rand > 0.5 ? :red : :green
+      print pixel.send(colour)
+    end
+    puts
   end
+  sleep 0.1
 end
 
 def inBounds(row, col)
@@ -44,5 +81,6 @@ loop do
       lights[row][col] = nextState(lastEpoch, row, col) ? 1 : 0
     end
   end
+  # sleep(2)
   dispLights(lights)
 end
