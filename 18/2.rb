@@ -50,6 +50,10 @@ else
         lights[row][col] = nextState(lastEpoch, row, col) ? 1 : 0
       end
     end
+    lights[0][0] = 1
+    lights[99][99] = 1
+    lights[0][99] = 1
+    lights[99][0] = 1
     dispLights(lights)
   end
   puts lights.flatten.reduce(:+)
