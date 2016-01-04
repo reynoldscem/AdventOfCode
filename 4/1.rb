@@ -1,6 +1,5 @@
 #!/usr/bin/ruby
 require 'digest'
-require 'pry'
 
 input = File.open(ARGV[0]).read.chomp
 
