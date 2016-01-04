@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 input = File.open(ARGV[0]).read.split("\n")
 orig = input.map{|x| x.length}.reduce(:+)
