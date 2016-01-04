@@ -3,35 +3,35 @@
 begin
   input = File.open(ARGV[0]).read
 rescue
-  puts "Valid input file from AdventOfCode required as first argument."
+  puts 'Valid input file from AdventOfCode required as first argument.'
 else
-  roboTurn = false
-  grid = Hash.new
-  grid[[0,0]] = 2;
-  Indices = Struct.new(:rowInd, :colInd);
-  santa = Indices.new(0, 0);
-  roboSanta = Indices.new(0, 0);
+  robo_turn = false
+  grid = {}
+  grid[[0, 0]] = 2
+  Indices = Struct.new(:row_ind, :col_ind)
+  santa = Indices.new(0, 0)
+  robo_santa = Indices.new(0, 0)
   input.split('').each do |char|
-    rowInd, colInd = (roboTurn ? roboSanta : santa).to_a
+    row_ind, col_ind = (robo_turn ? robo_santa : santa).to_a
 
     case char
     when '^'
-      rowInd += 1
+      row_ind += 1
     when 'v'
-      rowInd -= 1
+      row_ind -= 1
     when '>'
-      colInd += 1
+      col_ind += 1
     when '<'
-      colInd -= 1
+      col_ind -= 1
     end
 
-    grid[[rowInd, colInd]] ||= 0
-    grid[[rowInd, colInd]] += 1
+    grid[[row_ind, col_ind]] ||= 0
+    grid[[row_ind, col_ind]] += 1
 
-    thisSanta = roboTurn ? roboSanta : santa
-    thisSanta[:rowInd] = rowInd
-    thisSanta[:colInd] = colInd
-    roboTurn = !roboTurn
+    this_santa = robo_turn ? robo_santa : santa
+    this_santa[:row_ind] = row_ind
+    this_santa[:col_ind] = col_ind
+    robo_turn = !robo_turn
   end
   puts grid.values.length
 end

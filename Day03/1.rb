@@ -3,23 +3,23 @@
 begin
   input = File.open(ARGV[0]).read
 rescue
-  puts "Valid input file from AdventOfCode required as first argument."
+  puts 'Valid input file from AdventOfCode required as first argument.'
 else
-  rowInd = colInd = 0
-  grid = Hash.new
+  row_ind = col_ind = 0
+  grid = {}
   input.split('').each do |char|
-    grid[[rowInd, colInd]] ||= 0
-    grid[[rowInd, colInd]] += 1
+    grid[[row_ind, col_ind]] ||= 0
+    grid[[row_ind, col_ind]] += 1
 
     case char
     when '^'
-      rowInd += 1
+      row_ind += 1
     when 'v'
-      rowInd -= 1
+      row_ind -= 1
     when '>'
-      colInd += 1
+      col_ind += 1
     when '<'
-      colInd -= 1
+      col_ind -= 1
     end
   end
 

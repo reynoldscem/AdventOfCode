@@ -1,12 +1,29 @@
 #!/usr/bin/ruby
-require 'pry'
 
+# Monkeypatch to check string is nice
 class String
+  def includes_pairs
+    include?('ab') || include?('cd') ||
+      include?('pq') || include?('xy')
+  end
+
+  def under_n_vowels(n)
+    scan(/[aeiou]/).length < n
+  end
+
+  def atleast_one_repetition
+    squeeze.length == length
+  end
+
   def nice?
-    !self.include?("ab") && !self.include?("cd") &&
-    !self.include?("pq") && !self.include?("xy") &&
-    !(self.scan(/[aeiou]/).length < 3) &&
-    !(self.squeeze.length == self.length)
+    !includes_pairs &&
+      !under_n_vowels(3) &&
+      !atleast_one_repetition
+  end
+
+  # Find out who's naughty or nice
+  def check_twice
+    nice? && nice?
   end
 end
 
@@ -14,11 +31,11 @@ begin
   # Make a list
   list = File.open(ARGV[0]).read.split
 rescue
-  puts "Valid input file from AdventOfCode required as first argument."
+  puts 'Valid input file from AdventOfCode required as first argument.'
 else
   # Check it twice
-  naughtyOrNice = list.select(&:nice?).select(&:nice?).length
+  puts list.count(&:check_twice)
 
-  # Gonna find out who's naughty or nice
-  puts naughtyOrNice
+  santa_clause_is_coming_to_town = true
+  assert santa_clause_is_coming_to_town
 end
