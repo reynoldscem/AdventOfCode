@@ -31,13 +31,6 @@ end
 
 input.each_with_index do |instruction, index|
   tokens = instruction.split
-  case tokens.first
-  when "toggle"
-    toggle(tokens[1..4].map(&:to_i))
-  when "off"
-    off(tokens[1..4].map(&:to_i))
-  when "on"
-    on(tokens[1..4].map(&:to_i))
-  end
+  send(tokens.first, tokens[1..4].map(&:to_i))
 end
 puts @lightGrid.flatten.select{|x|x}.reduce(:+)
