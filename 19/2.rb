@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 begin
   input = File.readlines(ARGV[0])

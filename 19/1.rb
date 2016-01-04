@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 require 'set'
 
 begin
