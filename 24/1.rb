@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 def setDiff(s1, s2)
   s1 - s2 | s2 - s1
