@@ -5,15 +5,12 @@ begin
 rescue
   puts "Valid input file from AdventOfCode required as first argument."
 else
-  rowInd = 0
-  colInd = 0
+  rowInd = colInd = 0
   grid = Hash.new
   input.split('').each do |char|
-    if grid[[rowInd, colInd]].nil?
-      grid[[rowInd, colInd]] = 1
-    else
-      grid[[rowInd, colInd]] += 1
-    end
+    grid[[rowInd, colInd]] ||= 0
+    grid[[rowInd, colInd]] += 1
+
     case char
     when '^'
       rowInd += 1
