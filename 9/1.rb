@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 def validPath?(adjMat, path, citiesToIndices)
   (1...(path.length)).each do |index|

@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+
 begin
   str = File.open(ARGV[0]).read
 rescue
