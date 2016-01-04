@@ -24,11 +24,7 @@ def nextState(lights, row, col)
   neighbourStates =
     neighbours.map{|pair| inBounds(*pair) ? lights[pair[0]][pair[1]] : 0 }
   sum = neighbourStates.reduce(:+)
-  if lights[row][col] == 1
-    sum == 2 || sum == 3
-  else
-    sum == 3
-  end
+  sum == 3 || (lights[row][col] == 1 ? sum == 2 : false)
 end
 
 begin
