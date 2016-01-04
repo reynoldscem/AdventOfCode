@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 tape =
   Hash[
@@ -42,11 +41,7 @@ else
     end
     .map do |tuple|
     shared = tuple.keys & tape.keys
-    if tuple.values_at(*shared) == tape.values_at(*shared)
-      tuple
-    else
-      nil
-    end
+    tuple.values_at(*shared) == tape.values_at(*shared) ? tuple : nil
   end
   .index do |aunt|
     !aunt.nil?
