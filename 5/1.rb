@@ -10,5 +10,11 @@ class String
   end
 end
 
-input = File.open(ARGV[0]).read.split
-puts input.select(&:nice?).length
+# Make a list
+list = File.open(ARGV[0]).read.split
+
+# Check it twice
+naughtyOrNice = list.select(&:nice?).select(&:nice?).length
+
+# Gonna find out who's naughty or nice
+puts naughtyOrNice
