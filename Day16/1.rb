@@ -3,7 +3,7 @@
 tape =
   Hash[
     *
-    """
+    "
       children: 3
       cats: 7
       samoyeds: 2
@@ -14,8 +14,8 @@ tape =
       trees: 3
       cars: 2
       perfumes: 1
-    """
-    .gsub(/:/,'')
+    "
+    .gsub(/:/, '')
     .split
     .map.with_index(1) do |e, i|
       (i % 2).zero? ? e.to_i : e
@@ -25,25 +25,23 @@ tape =
 begin
   input = File.readlines(ARGV[0])
 rescue
-  puts "Valid input file from AdventOfCode required as first argument."
+  puts 'Valid input file from AdventOfCode required as first argument.'
 else
-    puts(input.map do |line|
-      Hash[
-        line.strip
-          .split(": ",2)[1]
-          .split(', ')
-          .map do |tuple|
-            tuple = tuple.split(': ')
-            tuple[1] = tuple[1].to_i
-            tuple
-        end
-      ]
-    end
-    .map do |tuple|
+  aunt_hashes = input.map do |line|
+    Hash[
+      line.strip.split(': ', 2)[1].split(', ').map do |tuple|
+        tuple = tuple.split(': ')
+        tuple[1] = tuple[1].to_i
+        tuple
+      end
+    ]
+  end
+  correct_aunt = aunt_hashes.map do |tuple|
     shared = tuple.keys & tape.keys
     tuple.values_at(*shared) == tape.values_at(*shared) ? tuple : nil
   end
-  .index do |aunt|
+  aunt_index = correct_aunt.index do |aunt|
     !aunt.nil?
-  end + 1)
+  end
+  puts aunt_index + 1
 end

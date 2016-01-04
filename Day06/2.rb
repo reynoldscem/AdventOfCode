@@ -1,36 +1,41 @@
 #!/usr/bin/ruby
-require 'pry'
+
+replacements =
+  { 'through ' => '', 'turn ' => '', ',' => ' ' }
 
 input = File.open(ARGV[0]).read.split("\n").map do |instruction|
-  instruction.gsub("through ", "").gsub("turn ", "").gsub(","," ")
+  replacements.each { |h, k| instruction.gsub!(h, k) }
+  instruction
 end
 
-@lightGrid = Array.new(1000) { Array.new(1000) {0} }
+@light_grid = Array.new(1000) { Array.new(1000) { 0 } }
 
-def getIndices(startRow, startCol, finRow, finCol)
-  (startRow..finRow).to_a.product((startCol..finCol).to_a)
+def get_indices(start_row, start_col, end_row, end_col)
+  (start_row..end_row).to_a.product((start_col..end_col).to_a)
 end
 
 def toggle(indices)
-  getIndices(*indices).each do |light|
-    @lightGrid[light[0]][light[1]] += 2
+  get_indices(*indices).each do |light|
+    @light_grid[light[0]][light[1]] += 2
   end
 end
 
 def off(indices)
-  getIndices(*indices).each do |light|
-    @lightGrid[light[0]][light[1]] -= 1 unless @lightGrid[light[0]][light[1]].zero?
+  get_indices(*indices).each do |light|
+    unless @light_grid[light[0]][light[1]].zero?
+      @light_grid[light[0]][light[1]] -= 1
+    end
   end
 end
 
 def on(indices)
-  getIndices(*indices).each do |light|
-    @lightGrid[light[0]][light[1]] += 1
+  get_indices(*indices).each do |light|
+    @light_grid[light[0]][light[1]] += 1
   end
 end
 
-input.each_with_index do |instruction, index|
+input.each do |instruction|
   tokens = instruction.split
   send(tokens.first, tokens[1..4].map(&:to_i))
 end
-puts @lightGrid.flatten.select{|x|x}.reduce(:+)
+puts @light_grid.flatten.select { |x| x }.reduce(:+)

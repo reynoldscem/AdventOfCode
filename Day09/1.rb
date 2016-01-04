@@ -1,16 +1,20 @@
 #!/usr/bin/ruby
 
-def validPath?(adjMat, path, citiesToIndices)
+def valid_path?(adj_mat, path, cities_to_indices)
   (1...(path.length)).each do |index|
-    return false if adjMat[citiesToIndices[path[index-1]]][citiesToIndices[path[index]]].zero?
+    source_city = cities_to_indices[path[index - 1]]
+    dest_city = cities_to_indices[path[index]]
+    return false if adj_mat[source_city][dest_city].zero?
   end
   true
 end
 
-def pathLength(adjMat, path, citiesToIndices)
-  length = 0;
+def path_length(adj_mat, path, cities_to_indices)
+  length = 0
   (1...(path.length)).each do |index|
-    length += adjMat[citiesToIndices[path[index-1]]][citiesToIndices[path[index]]]
+    source_city = cities_to_indices[path[index - 1]]
+    dest_city = cities_to_indices[path[index]]
+    length += adj_mat[source_city][dest_city]
   end
   length
 end
@@ -18,27 +22,45 @@ end
 begin
   input = File.open(ARGV[0]).read.split("\n")
 rescue
-  puts "Valid input file from AdventOfCode required as first argument."
+  puts 'Valid input file from AdventOfCode required as first argument.'
 else
-  cities = input.join.gsub(/ to /," ").gsub(/\d/,"").gsub(/=/,"").split.uniq.sort
-  citiesToIndices = Hash[cities.map.with_index.to_a]
-  adjMat = Array.new(cities.length) { Array.new(cities.length) {0} }
-  tuples = input.map {|line| line.gsub(/ to /, " ").gsub(/= /,"").split }
-  binding.pry
+  replacements =
+    [
+      [/ to /, ' '],
+      [/\d/, ''],
+      [/=/, '']
+    ]
+  cities = input.join
+  replacements.each do |pair|
+    cities.gsub!(pair[0], pair[1])
+  end
+  cities = cities.split.uniq.sort
+  cities_to_indices = Hash[cities.map.with_index.to_a]
+  adj_mat = Array.new(cities.length) { Array.new(cities.length) { 0 } }
+  replacements.delete_at(1)
+  tuples = input.map do |line|
+    replacements.each do |pair|
+      line.gsub!(pair[0], pair[1])
+    end
+    line.split
+  end
   tuples.each do |tuple|
-    adjMat[citiesToIndices[tuple[0]]][citiesToIndices[tuple[1]]] = tuple[2].to_i
-    adjMat[citiesToIndices[tuple[1]]][citiesToIndices[tuple[0]]] = tuple[2].to_i
+    first_city = cities_to_indices[tuple[0]]
+    second_city = cities_to_indices[tuple[1]]
+    distance = tuple[2].to_i
+    adj_mat[first_city][second_city] = distance
+    adj_mat[second_city][first_city] = distance
   end
   # O(|cities|!), but who cares?
-  possiblePaths = cities.permutation.to_a.select do |path|
-    validPath?(adjMat, path, citiesToIndices)
+  possible_paths = cities.permutation.select do |path|
+    valid_path?(adj_mat, path, cities_to_indices)
   end
-  best = Hash[possiblePaths.map do |path|
-    pathLength(adjMat, path, citiesToIndices)
-  end.zip(possiblePaths)].max
-  puts "Best path is:"
-  best[1].each {|city| print(city, " ") }
+  best = Hash[possible_paths.map do |path|
+    path_length(adj_mat, path, cities_to_indices)
+  end.zip(possible_paths)].max
+  puts 'Best path is:'
+  best[1].each { |city| print(city, ' ') }
   puts
-  print("Length ", best[0])
+  print('Length ', best[0])
   puts
 end
