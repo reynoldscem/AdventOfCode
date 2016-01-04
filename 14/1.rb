@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 def timeForReindeer(reindeer, totalTime)
   completeCycles = totalTime / (reindeer.duration + reindeer.rest)
@@ -14,11 +13,14 @@ rescue
   puts "Valid input file from AdventOfCode required as first argument."
 else
   Reindeer = Struct.new(:name, :speed, :duration, :rest)
+
   reindeers = input.map do |line|
     Reindeer.new(line[0], line[3].to_i, line[6].to_i, line[-2].to_i)
   end
+
   reindeerTimes = reindeers.map do |reindeer|
     timeForReindeer(reindeer, duration)
   end
+
   puts reindeerTimes.max
 end
