@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-require 'pry'
 
 begin
   instructions = File.open(ARGV[0]).read.split("\n").map{|item| item.gsub(/,/,"").split }
