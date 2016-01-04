@@ -9,5 +9,10 @@ class String
   end
 end
 
-input = File.open(ARGV[0]).read.split
-puts input.select(&:nice?).length
+begin
+  input = File.open(ARGV[0]).read.split
+rescue
+  puts "Valid input file from AdventOfCode required as first argument."
+else
+  puts input.select(&:nice?).length
+end

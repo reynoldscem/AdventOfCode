@@ -10,11 +10,15 @@ class String
   end
 end
 
-# Make a list
-list = File.open(ARGV[0]).read.split
+begin
+  # Make a list
+  list = File.open(ARGV[0]).read.split
+rescue
+  puts "Valid input file from AdventOfCode required as first argument."
+else
+  # Check it twice
+  naughtyOrNice = list.select(&:nice?).select(&:nice?).length
 
-# Check it twice
-naughtyOrNice = list.select(&:nice?).select(&:nice?).length
-
-# Gonna find out who's naughty or nice
-puts naughtyOrNice
+  # Gonna find out who's naughty or nice
+  puts naughtyOrNice
+end
