@@ -3,11 +3,11 @@
 begin
   input = File.open(ARGV[0]).read.to_i
 rescue
-  puts "Valid input file from AdventOfCode required as first argument."
+  puts 'Valid input file from AdventOfCode required as first argument.'
 else
-  houses = Array.new(100_000_000){0}
+  houses = Array.new(100_000_000) { 0 }
   (1..(Float::INFINITY)).each do |elf|
-    (elf..(50*(elf + 1))).step(elf) do |house|
+    (elf..(50 * (elf + 1))).step(elf) do |house|
       houses[house] += (elf * 11)
     end
     if houses[elf] >= input
