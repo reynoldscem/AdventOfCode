@@ -1,5 +1,8 @@
 #!/usr/bin/ruby
 
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+
 # Monkeypatch to check string is nice
 class String
   def includes_pairs
