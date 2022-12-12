@@ -59,7 +59,7 @@ else
   path_to_score_map = Hash[possible_paths.map do |path|
     path_length(adj_mat, path, cities_to_indices)
   end.zip(possible_paths)]
-  best_score, best_path = path_to_score_map.min
+  best_score, best_path = path_to_score_map.max
   puts 'Best path is:'
   puts best_path.join(" -> ")
   print('Length ', best_score)
