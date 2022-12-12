@@ -37,7 +37,6 @@ else
     path << path[0]
     #validPath?(adjMat, path, namesToIndices)
   end
-  binding.pry
   best = Hash[possiblePaths.map do |path|
     pathLength(adjMat, path, namesToIndices)
   end.zip(possiblePaths)].max
