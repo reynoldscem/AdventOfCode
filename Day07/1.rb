@@ -1,10 +1,18 @@
 #!/usr/bin/ruby
 
 def parse_rule(gates, rule)
+
+  # Assign
+  if rule[0].length == 1
+    gates[rule[1]] = gates[rule[0][0]].to_i
+    return
+  end
+
   # NOT
   if rule[0].length == 2
-    ans = ~gates[rule[0][1]] & 65_535
+    ans = (~gates[rule[0][1]]) & 65_535
     gates[rule[1]] = ans
+    return
   end
 
   case rule[0][1]
@@ -60,13 +68,14 @@ def get_next_indices(rules, gates)
   end
 end
 
-input = File.open(ARGV[0]).read.split('\n')
+input = File.open(ARGV[0]).read.split("\n")
 
 gates = {}
 
-rules = input.map { |rule| rule.split('->').map(&:strip) }.map do |rule|
+rules = input.map { |rule| rule.split("->").map(&:strip) }.map do |rule|
   [rule[0].split, rule[1]]
 end
+
 base_rule_indices = rules.each_index.select do |index|
   rule = rules[index]
   rule[0].length == 1 && rule[0][0].match(/[0-65535]/)
@@ -80,12 +89,13 @@ end
 
 rules.compact!
 
-# [] on the LHS indicates that it's a base rule too
 while (next_round = get_next_indices(rules, gates)).length > 0
   next_round.each do |index|
     rule = rules[index]
     rules[index] = nil
-    parseRule(gates, rule)
+    parse_rule(gates, rule)
   end
   rules.compact!
 end
+
+puts gates["a"]
