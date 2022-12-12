@@ -36,4 +36,4 @@ input.each do |instruction|
   tokens = instruction.split
   send(tokens.first, tokens[1..4].map(&:to_i))
 end
-puts @light_grid.flatten.count { |x| x }.length
+puts @light_grid.flatten.count { |x| x }
