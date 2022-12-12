@@ -15,5 +15,5 @@ rescue
   puts 'Valid input file from AdventOfCode required as first argument.'
 else
   entries = input.map { |line| parse line }
-  puts entries.map { |entry| areaForItem entry }.reduce(:+)
+  puts entries.map { |entry| area_for_item entry }.reduce(:+)
 end
