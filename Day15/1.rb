@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+require 'pry'
+
 def cals(ingredients, amounts)
   ingredients = ingredients.clone
   ingredients.keys.each do |name|
@@ -19,7 +21,10 @@ def score(ingredients, amounts)
       scale_ingredients(ingredients[name], amounts[name])
   end
   ingredients.values.transpose.map do |set|
+    # puts set
     sum = set.reduce(:+)
+    # puts sum
+    # puts
     sum < 0 ? 0 : sum
   end.reduce(:*)
 end
@@ -41,15 +46,13 @@ else
   loop do
     old_score = score(ingredients, amounts)
     ingredients_to_change = nil
-    valid = {}
     keys = ingredients.keys
     keys.product(keys).select { |e| e[0] != e[1] }.each do |key_pair|
       tmp = amounts.clone
       tmp[key_pair[0]] += 1
       tmp[key_pair[1]] -= 1
       this_score = score(ingredients, tmp)
-      valid[key_pair] = cals(ingredients, tmp) <= 500
-      if this_score > old_score && valid[key_pair]
+      if this_score > old_score
         old_score = this_score
         ingredients_to_change = key_pair
       end
