@@ -2,7 +2,7 @@
 require 'pry'
 require_relative 'queue.rb'
 
-@verbose = false
+@verbose = true
 
 Gamestate =
   Struct.new('Gamestate',
@@ -23,7 +23,8 @@ SPELLS =
     'Re' => Spell.new('Recharge', 229, 0, 0, RECHARGE)
   }
 
-state = Gamestate.new(51, 9, 50, 500, 0, [], true, 0)
+state = Gamestate.new(14, 8, 10, 250, 0, [], true, 0)
+state = Gamestate.new(71, 10, 50, 500, 0, [], true, 0)
 
 def shield_action(state, effect)
   if effect.remaining == SHIELD.remaining
@@ -78,7 +79,7 @@ end
 
 def effects_handler(state)
   state.effects.delete_if do |effect|
-    # binding.pry if state.boss_hp == 12
+    # binding.pry if state.boss_hp == 57
     enact_effect(state, effect)
     effect.remaining == 0
   end
@@ -139,8 +140,11 @@ def next_spells(state)
   return [nil] unless state.player_turn
   potentialSpells = clone(SPELLS.values)
   potentialSpells.reject do |spell|
+    # binding.pry if state.effects.length >= 1
     (!spell.effect.nil? &&
-      state.effects.map(&:name).include?(spell.effect.name)) ||
+      state.effects.map(&:name).include?(spell.effect.name) &&
+      state.effects.find {|effect| effect.name == spell.name}.remaining > 1
+    ) ||
       spell.cost > state.player_mana
   end
 end
@@ -164,33 +168,39 @@ states = Queue.new.enqueue state
 best = Float::INFINITY
 bestState = nil
 
+if true
 until states.empty?
-  current = states.dequeue
+  current = clone states.dequeue
   next_iter = next_states current
-  if next_iter.empty? && current.boss_hp <= 0 && current.player_hp > 0
-    #binding.pry
-    #puts current.mana_spent
-    if best == nil || (current.mana_spent < best)
+
+  # binding.pry
+
+  if (current.boss_hp <= 0 && current.player_hp > 0)
+    # binding.pry
+    # next_iter.empty? && 
+    puts current.mana_spent
+    if bestState == nil || (current.mana_spent < best)
+      puts "New best"
       best = current.mana_spent
       bestState = clone(current)
     end
     pruned_states = Queue.new
     states.store.reject { |s| s.player_hp <= 0 || s.mana_spent >= best}.each do |pruned_state|
-      pruned_states.enqueue pruned_state
+      pruned_states.enqueue clone(pruned_state)
     end
-    # binding.pry
     states = pruned_states
     next
   end
 
   next_iter.each do |succ|
-    states.enqueue succ
+    states.enqueue clone(succ) unless states.store.include? succ
   end
 
 end
 puts best
 exit
-binding.pry
+end
+
 change_state(state, clone(SPELLS['Re']))
 change_state(state, nil)
 change_state(state, clone(SPELLS['Sh']))
@@ -201,4 +211,4 @@ change_state(state, clone(SPELLS['Po']))
 change_state(state, nil)
 change_state(state, clone(SPELLS['MM']))
 change_state(state, nil)
-
+binding.pry
