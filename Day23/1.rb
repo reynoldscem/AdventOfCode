@@ -11,7 +11,6 @@ rescue
 else
   p_counter = 0
   reg_bank = Array.new(2) { 0 }
-  reg_bank[0] = 1
   while p_counter < instructions.length
     cir = instructions[p_counter]
     puts 'Read: ' + cir.join(' ') if verbose
