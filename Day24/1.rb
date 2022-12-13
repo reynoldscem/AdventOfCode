@@ -23,7 +23,7 @@ def choice_for_n_bins(presents, n)
       combination.reduce(:+) == desired_weight &&
         choice_for_n_bins(presents - combination, n - 1)
     end
-  end.find { |x| !x.empty? }
+  end.find { |x| x && !x.empty? }
 end
 
 begin
@@ -31,5 +31,5 @@ begin
 rescue
   puts 'Valid input file from AdventOfCode required as first argument.'
 else
-  puts choice_for_n_bins(presents, 4).reduce(:*)
+  puts choice_for_n_bins(presents, 3).reduce(:*)
 end
