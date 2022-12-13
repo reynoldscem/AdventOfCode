@@ -2,12 +2,11 @@
 
 @lim = 100
 
-def disp_lights(lights)
-  system('clear')
+def disp_lights(lights, clear=true)
+  system('clear') if clear
   lights.each do |row|
-    row = row.map(&:to_s).join.tr('0', ' ').tr('1', '#')
-    puts row, row.reverse
-    puts
+    row = row.map(&:to_s).join.tr('0', '.').tr('1', '#')
+    puts row
   end
 end
 
@@ -41,8 +40,15 @@ else
     input.gsub(/#/, '1').gsub(/\./, '0').split.map do |line|
       line.split('').map(&:to_i)
     end
-  disp_lights(lights)
-  100.times do
+  lights[0][0] = 1
+  lights[@lim - 1][@lim - 1] = 1
+  lights[0][@lim - 1] = 1
+  lights[@lim - 1][0] = 1
+  puts("Initial")
+  disp_lights(lights, false)
+  puts
+
+  (1..100).each do |steps|
     last_epoch = Marshal.load(Marshal.dump(lights))
     (0...@lim).each do |row|
       (0...@lim).each do |col|
@@ -50,10 +56,13 @@ else
       end
     end
     lights[0][0] = 1
-    lights[99][99] = 1
-    lights[0][99] = 1
-    lights[99][0] = 1
-    disp_lights(lights)
+    lights[@lim - 1][@lim - 1] = 1
+    lights[0][@lim - 1] = 1
+    lights[@lim - 1][0] = 1
+
+    puts("After #{steps} steps")
+    disp_lights(lights, false)
+    puts
   end
   puts lights.flatten.reduce(:+)
 end
